@@ -22,7 +22,7 @@ const App = () => {
 
         {/* Private Routes */}
         <Route path="/" element={<PrivateLayout isAuthenticated={!!user} />}>
-          <Route path="dashboard" element={<HomePage />} />
+          <Route path="home" element={<HomePage />} />
           {/* Add more private routes here */}
         </Route>
       </Routes>

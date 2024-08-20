@@ -3,7 +3,7 @@ import axiosInstance from "../axiosInstance";
 import { useError } from "./useError";
 import { url } from "../utils/API";
 
-const useFetchPosts = (page, limit) => {
+const useFetchPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useError();
@@ -13,14 +13,21 @@ const useFetchPosts = (page, limit) => {
     nextPageUrl: null,
     prevPageUrl: null,
   });
-  const fetchAllPosts = async (pageUrl = url.posts) => {
+
+  const fetchAllPosts = async ({
+    pageUrl = url.posts,
+    page = 1,
+    limit = 9,
+    search = "",
+  }) => {
     setError(null);
     setLoading(true);
     setPosts([]);
+    console.log(pageUrl);
 
     try {
       const response = await axiosInstance.get(
-        `${url.post}?page=${page}&limit=${limit}`
+        `${pageUrl}page=${page}&limit=${limit}&search=${search}`
       );
 
       const data = response.data;

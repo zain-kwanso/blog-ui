@@ -36,7 +36,11 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form
+      className="w-full max-w-3xl self-center p-4"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+    >
       <div className="mb-4">
         <label className="block text-gray-700">Email</label>
         <input

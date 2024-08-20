@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
-import { url } from "../hooks/API";
+import { url } from "../utils/API";
 
 const SearchBar = ({ search, setSearch, fetchPosts }) => {
   const debouncedSearch = useDebounce(search, 1000);
@@ -27,13 +27,7 @@ const SearchBar = ({ search, setSearch, fetchPosts }) => {
   }, [debouncedSearch]);
 
   const fetchPostsWithSearch = async () => {
-    const baseUrl =
-      location.pathname == "/post/my" ? url.user_posts : url.posts;
-    const searchUrl = debouncedSearch
-      ? `${baseUrl}?search=${debouncedSearch}`
-      : baseUrl;
-
-    await fetchPosts(searchUrl);
+    await fetchPosts({ search: debouncedSearch });
     setSearchParams(debouncedSearch ? `?search=${debouncedSearch}` : "");
   };
 

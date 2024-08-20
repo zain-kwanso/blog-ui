@@ -6,20 +6,15 @@ import Footer from "../components/Footer";
 const PublicLayout = ({ isAuthenticated }) => {
   if (isAuthenticated) {
     // If the user is authenticated, redirect to the dashboard or home page
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/home" />;
   }
 
   return (
-    <div>
-      {/* Public Header (if any) */}
+    <div className="flex flex-col min-h-screen h-full justify-between relative">
       <Header />
 
-      <main>
-        {/* The Outlet component will render the matched child routes */}
-        <Outlet />
-      </main>
+      <Outlet />
 
-      {/* Optional Footer */}
       <Footer />
     </div>
   );

@@ -1,5 +1,7 @@
 import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const PrivateLayout = ({ isAuthenticated }) => {
   if (!isAuthenticated) {
@@ -7,19 +9,12 @@ const PrivateLayout = ({ isAuthenticated }) => {
   }
 
   return (
-    <div className="flex">
-      {/* Sidebar */}
-      <aside className="w-64">{/* Insert your Sidebar component here */}</aside>
+    <div className="flex flex-col min-h-screen h-full justify-between relative">
+      <Header />
 
-      <div className="flex-1">
-        {/* Private Header */}
-        <header>{/* Insert your Header component here */}</header>
+      <Outlet />
 
-        <main>
-          {/* The Outlet component will render the matched child routes */}
-          <Outlet />
-        </main>
-      </div>
+      <Footer />
     </div>
   );
 };

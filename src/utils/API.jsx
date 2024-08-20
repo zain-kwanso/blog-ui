@@ -1,5 +1,5 @@
 export const url = {
-  posts: `/posts`,
+  posts: `/posts?`,
   user_posts: `/posts/user`,
   comments: `/comments`,
   signin: `/auth/signin`,
