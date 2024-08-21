@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance";
-import { useError } from "./useError";
 import { url } from "../utils/API";
 
-const useFetchPosts = () => {
+const useFetchAllPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useError();
+  const [error, setError] = useState();
   const [pagination, setPagination] = useState({
     currentPage: 1,
     totalPages: 1,
@@ -17,17 +16,17 @@ const useFetchPosts = () => {
   const fetchAllPosts = async ({
     pageUrl = url.posts,
     page = 1,
-    limit = 9,
+    limit = 10,
     search = "",
   }) => {
     setError(null);
     setLoading(true);
     setPosts([]);
-    console.log(pageUrl);
+    // console.log(pageUrl);
 
     try {
       const response = await axiosInstance.get(
-        `${pageUrl}page=${page}&limit=${limit}&search=${search}`
+        `${pageUrl}?page=${page}&limit=${limit}&search=${search}`
       );
 
       const data = response.data;
@@ -39,17 +38,28 @@ const useFetchPosts = () => {
         prevPageUrl: data.pagination?.previousPageUrl || pagination.prevPageUrl,
       });
     } catch (error) {
-      setError(error.response?.data?.message || error.message);
+      console.log(error);
+      setError("Failed to fetch posts");
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchUserPosts = async (pageUrl = url.user_posts) => {
-    fetchAllPosts(pageUrl);
+  const fetchUserPosts = async ({
+    pageUrl = url.user_posts,
+    page = 1,
+    limit = 10,
+    search = "",
+  }) => {
+    fetchAllPosts({
+      pageUrl: pageUrl,
+      page: page,
+      limit: limit,
+      search: search,
+    });
   };
 
   return { posts, pagination, loading, fetchAllPosts, fetchUserPosts, error };
 };
 
-export default useFetchPosts;
+export default useFetchAllPosts;

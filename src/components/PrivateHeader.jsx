@@ -1,36 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { FaUser } from "react-icons/fa";
+import { AuthContext } from "../context/authContext";
 
-const Header = () => {
+const PrivateHeader = () => {
+  const { user, signout } = useContext(AuthContext);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const handleProfileClick = () => {
+    toast.info(
+      <div>
+        <p>Hi! {user?.name} Do you want to signOut?</p>
+        <button
+          onClick={() => {
+            signout();
+            toast.dismiss();
+          }}
+          className="bg-red-600 text-white py-1 px-4 rounded mt-2"
+        >
+          Sign Out
+        </button>
+      </div>,
+      {
+        autoClose: false,
+        closeOnClick: true,
+        draggable: false,
+      }
+    );
+  };
+
   return (
-    <header className="bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-500 text-white shadow-md sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-2 flex items-center justify-between">
-        {/* Logo/Brand Name */}
-        <Link to="/" className="text-2xl font-bold">
+    <header className="fixed top-0 left-0 w-full bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-500 text-white shadow-md z-50">
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <Link to="/home" className="text-2xl font-bold">
           MyBlogApp
         </Link>
-
-        {/* Navigation Links */}
         <nav className="hidden md:flex space-x-6">
-          <Link to="/" className="hover:text-gray-200">
+          <Link to="/home" className="hover:text-gray-200">
             Home
           </Link>
           <Link to="/about" className="hover:text-gray-200">
             About
           </Link>
-          <Link to="/contact" className="hover:text-gray-200">
-            Contact
-          </Link>
-          {/* Add more navigation links as needed */}
         </nav>
-
-        {/* Mobile Menu Button */}
+        {user ? (
+          <button
+            onClick={handleProfileClick}
+            className="flex items-center focus:outline-none"
+          >
+            <FaUser className="w-6 h-6" />
+          </button>
+        ) : (
+          <div className="flex items-center space-x-4">
+            <Link to="/login" className="hover:text-gray-200">
+              Login
+            </Link>
+            <Link to="/signup" className="hover:text-gray-200">
+              Sign Up
+            </Link>
+          </div>
+        )}
         <button
           onClick={toggleMobileMenu}
           className="md:hidden flex items-center focus:outline-none"
@@ -51,14 +85,12 @@ const Header = () => {
           </svg>
         </button>
       </div>
-
-      {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <nav className="md:hidden bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-500 text-white">
           <ul className="space-y-4 px-4 py-2">
             <li>
               <Link
-                to="/"
+                to="/home"
                 className="block py-2 hover:bg-gray-700 rounded"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -74,16 +106,6 @@ const Header = () => {
                 About
               </Link>
             </li>
-            <li>
-              <Link
-                to="/contact"
-                className="block py-2 hover:bg-gray-700 rounded"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Contact
-              </Link>
-            </li>
-            {/* Add more mobile navigation links as needed */}
           </ul>
         </nav>
       )}
@@ -91,4 +113,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default PrivateHeader;

@@ -1,11 +1,10 @@
 import { useState } from "react";
 import axiosInstance from "../axiosInstance";
-import { useError } from "./useError";
-import { url } from "../utils/settings";
+import { url } from "../utils/API";
 
 const useCreatePost = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useError();
+  const [error, setError] = useState();
   const [success, setSuccess] = useState(null);
 
   const createPost = async (data) => {
@@ -13,7 +12,7 @@ const useCreatePost = () => {
     setError(null);
     setSuccess(null);
     try {
-      const response = await axiosInstance.post(url.post, data);
+      const response = await axiosInstance.post(`${url.posts}/create`, data);
       setSuccess("Post created successfully!");
       return response.data;
     } catch (err) {

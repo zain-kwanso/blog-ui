@@ -13,7 +13,7 @@ const NotFoundPage = () => {
           It seems like you might have taken a wrong turn.
         </p>
         <Link
-          to="/"
+          to="/home"
           className="inline-block px-6 py-3 bg-blue-500 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-600 transition-colors"
         >
           Go to Home

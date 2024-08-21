@@ -1,11 +1,10 @@
 import { useState } from "react";
 import axiosInstance from "../axiosInstance";
-import { useError } from "./useError";
-import { url } from "../utils/settings";
+import { url } from "../utils/API";
 
 const useEditPost = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useError();
+  const [error, setError] = useState();
   const [success, setSuccess] = useState(null);
 
   const editPost = async (postId, postData) => {
@@ -14,14 +13,13 @@ const useEditPost = () => {
     setSuccess(null);
     try {
       const response = await axiosInstance.put(
-        `${url.post}/${postId}`,
+        `${url.posts}/${postId}`,
         postData
       );
       setSuccess("Post updated successfully!");
       return response.data;
     } catch (err) {
       setError("Failed to update the post. Please try again.");
-      throw err;
     } finally {
       setLoading(false);
     }

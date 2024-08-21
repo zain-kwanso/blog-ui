@@ -20,7 +20,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/dashboard");
+      navigate("/home");
     }
   }, [user]);
 

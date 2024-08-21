@@ -69,8 +69,8 @@ PostCard.propTypes = {
     authorName: PropTypes.string,
   }).isRequired,
   onClick: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func,
+  onEdit: PropTypes.func,
   isUserPost: PropTypes.bool.isRequired,
 };
 

@@ -1,17 +1,20 @@
 import React from "react";
+import { ToastContainer } from "react-toastify";
 import { Outlet, Navigate } from "react-router-dom";
-import Header from "../components/Header";
+import PrivateHeader from "../components/PrivateHeader";
 import Footer from "../components/Footer";
+import { routeUrl } from "../utils/pageRoutes";
 
 const PrivateLayout = ({ isAuthenticated }) => {
   if (!isAuthenticated) {
-    return <Navigate to="/login" />;
+    console.log("private layout");
+    return <Navigate to={routeUrl.base} />;
   }
 
   return (
     <div className="flex flex-col min-h-screen h-full justify-between relative">
-      <Header />
-
+      <PrivateHeader />
+      <ToastContainer />
       <Outlet />
 
       <Footer />

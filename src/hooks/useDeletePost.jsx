@@ -1,19 +1,19 @@
 import { useState } from "react";
 import axiosInstance from "../axiosInstance";
-import { useError } from "./useError";
-import { url } from "../utils/settings";
+import { url } from "../utils/API";
 
 const useDeletePost = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useError();
+  const [error, setError] = useState();
 
   const deletePost = async (postId) => {
     try {
       setLoading(true);
-      await axiosInstance.delete(`${API_URL.post}/${postId}`);
+      setError(null);
+      await axiosInstance.delete(`${url.posts}/${postId}`);
     } catch (error) {
       console.error("Error deleting post:", error);
-      setError(error.response?.data?.message || error.message);
+      setError("Error deleting post.");
     } finally {
       setLoading(false);
     }

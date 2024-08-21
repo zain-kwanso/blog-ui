@@ -1,15 +1,10 @@
 import { useEffect, useRef } from "react";
-import { useSearchParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
-import { url } from "../utils/API";
 
-const SearchBar = ({ search, setSearch, fetchPosts }) => {
-  const debouncedSearch = useDebounce(search, 1000);
-  const location = useLocation();
+const SearchBar = ({ search, setSearch, fetchPostsWithSearch }) => {
+  const debouncedSearch = useDebounce(search, 300);
   const hasMounted = useRef(false);
 
-  const [, setSearchParams] = useSearchParams();
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
@@ -20,16 +15,11 @@ const SearchBar = ({ search, setSearch, fetchPosts }) => {
       debouncedSearch != undefined &&
       debouncedSearch != null
     ) {
-      fetchPostsWithSearch();
+      fetchPostsWithSearch(debouncedSearch);
     } else {
       hasMounted.current = true;
     }
   }, [debouncedSearch]);
-
-  const fetchPostsWithSearch = async () => {
-    await fetchPosts({ search: debouncedSearch });
-    setSearchParams(debouncedSearch ? `?search=${debouncedSearch}` : "");
-  };
 
   return (
     <input

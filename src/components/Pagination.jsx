@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
+import { CurrencyEuroIcon } from "@heroicons/react/outline";
 
 const Pagination = ({
   currentPage,
@@ -12,8 +14,27 @@ const Pagination = ({
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
       onPageChange(page);
+    } else {
+      showToast(
+        "The Page that you are trying exist doesn't exist\nSo you are being redirected to first page"
+      );
+      onPageChange(1);
     }
   };
+  const showToast = (message) => {
+    toast.error(message, {
+      autoClose: 2000,
+      hideProgressBar: true,
+    });
+  };
+  useEffect(() => {
+    if (!(currentPage >= 1 && currentPage <= totalPages)) {
+      showToast(
+        "The Page that you are trying exist doesn't exist\nSo you are being redirected to first page"
+      );
+      onPageChange(1);
+    }
+  }, []);
 
   const handleLimitChange = (e) => {
     const newLimit = parseInt(e.target.value, 10);
@@ -79,12 +100,10 @@ const Pagination = ({
           onChange={handleLimitChange}
           className="px-2 py-1 border border-gray-300 rounded-md bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          <option value={4}>4</option>
           <option value={5}>5</option>
           <option value={10}>10</option>
+          <option value={15}>15</option>
           <option value={20}>20</option>
-          <option value={50}>50</option>
-          <option value={100}>100</option>
         </select>
       </div>
     </div>

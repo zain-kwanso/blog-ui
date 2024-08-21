@@ -1,18 +1,18 @@
 import { useState } from "react";
 import axiosInstance from "../axiosInstance";
-import { useError } from "./useError";
 import { url } from "../utils/API";
 
-const useFetchPostWithComments = (postId, refresh) => {
+const useFetchPost = () => {
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useError();
+  const [error, setError] = useState();
+  const [post, setPost] = useState();
 
-  const fetchPostWithComment = async () => {
+  const fetchPost = async (postId) => {
     setLoading(true);
     setError(null);
     try {
       const response = await axiosInstance.get(`${url.posts}/${postId}`);
-      return response.data;
+      setPost(response.data);
     } catch (err) {
       setError("Failed to load post");
     } finally {
@@ -20,7 +20,7 @@ const useFetchPostWithComments = (postId, refresh) => {
     }
   };
 
-  return { fetchPostWithComment, loading, error };
+  return { fetchPost, post, loading, error };
 };
 
-export default useFetchPostWithComments;
+export default useFetchPost;
