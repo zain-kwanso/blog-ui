@@ -1,36 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import Swal from 'sweetalert2';
-import { FaUser } from "react-icons/fa";
-import { AuthContext } from "../context/authContext";
 import { routeUrl } from "../utils/pageRoutes";
 
-const PrivateHeader = () => {
-  const { user, signout } = useContext(AuthContext);
+
+const PublicHeader = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const handleProfileClick = async () => {
-    const result = await Swal.fire({
-      title: `Hi! ${user?.name}`,
-      text: "Do you want to sign out?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sign Out",
-      cancelButtonText: "Cancel",
-    });
-  
-    if (result.isConfirmed) {
-      signout();
-      Swal.fire("Signed Out!", "You have been signed out.", "success");
-    }
-  };
 
   return (
     <header className="fixed top-0 left-0 w-full bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-500 text-white shadow-md z-50">
@@ -45,13 +24,14 @@ const PrivateHeader = () => {
           <Link to={routeUrl.about} className="hover:text-gray-200">
             About
           </Link>
+          <Link to={routeUrl.login} className="hover:text-gray-200">
+              Login
+            </Link>
+            <Link to={routeUrl.signup} className="hover:text-gray-200">
+              Sign Up
+            </Link>
         </nav>
-          <button
-            onClick={handleProfileClick}
-            className="flex items-center focus:outline-none"
-          >
-            <FaUser className="w-6 h-6 md:w-4 md:h-4" />
-          </button>
+       
         <button
           onClick={toggleMobileMenu}
           className="md:hidden flex items-center focus:outline-none"
@@ -93,6 +73,24 @@ const PrivateHeader = () => {
                 About
               </Link>
             </li>
+            <li>
+              <Link
+                to={routeUrl.login}
+                className="block py-2 hover:bg-gray-700 rounded"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Login
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={routeUrl.signup}
+                className="block py-2 hover:bg-gray-700 rounded"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Signup
+              </Link>
+            </li>
           </ul>
         </nav>
       )}
@@ -100,4 +98,4 @@ const PrivateHeader = () => {
   );
 };
 
-export default PrivateHeader;
+export default PublicHeader;

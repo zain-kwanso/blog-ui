@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 import postValidationSchema from "../validation/postValidationSchema";
 import useEditPost from "../hooks/useEditPost";
 import useFetchPost from "../hooks/useFetchPost";
@@ -33,8 +34,11 @@ const EditPostPage = () => {
 
   useEffect(() => {
     if (post) {
-      setValue("title", post.title || "");
-      setValue("content", post.content || "");
+      setValue("title", post?.title || "");
+      setValue("content", post?.content || "");
+    }
+    else{
+      navigate("/home")
     }
   }, [post]);
 
@@ -47,12 +51,14 @@ const EditPostPage = () => {
 
     try {
       await editPost(postId, data);
+      toast.success("Post updated successfully!");
       navigate(`/post/${postId}/preview`);
     } catch (error) {
       setError("api", {
         type: "manual",
-        message: error.message || "An error occurred during post update",
+        message: "An error occurred during post update",
       });
+      toast.error("An error occurred during post update");
     }
   };
 
@@ -99,9 +105,7 @@ const EditPostPage = () => {
               </p>
             )}
           </div>
-          {errors.api && (
-            <p className="text-red-500 text-sm mt-1">{errors.api.message}</p>
-          )}
+        
           <div className="flex gap-4 justify-end font-medium">
             <button
               type="submit"

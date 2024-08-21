@@ -40,7 +40,7 @@ const App = () => {
           path={routeUrl.base}
           element={<PrivateLayout isAuthenticated={!!user} />}
         >
-          <Route path={routeUrl.home} element={<HomePage />} />
+          {/* <Route path={routeUrl.home} element={<HomePage />} /> */}
           <Route path={routeUrl.editPost} element={<EditPostPage />} />
           <Route path={routeUrl.createPost} element={<CreatePostPage />} />
         </Route>

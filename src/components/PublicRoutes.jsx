@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
-const PublicRoute = ({ redirectPath = "/home" }) => {
+const PublicRoute = ({ redirectPath = "/" }) => {
   const { user } = useContext(AuthContext);
 
   if (user) {

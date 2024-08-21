@@ -1,13 +1,14 @@
 import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import Header from "../components/PrivateHeader";
+import 'react-toastify/dist/ReactToastify.css'; 
+import PublicHeader from "../components/PublicHeader";
 import Footer from "../components/Footer";
 
 const PublicLayout = ({ isAuthenticated }) => {
   return (
     <div className="flex flex-col min-h-screen h-full justify-between relative">
-      <Header />
+      {isAuthenticated ? <PrivateHeader /> : <PublicHeader />}
       <ToastContainer />
       <Outlet />
 

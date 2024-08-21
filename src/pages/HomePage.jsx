@@ -35,7 +35,6 @@ const HomePage = () => {
         limit: itemsPerPage,
         search: search,
       });
-      setSearchParams("?user=true");
     }
   }, [user, currentPage, itemsPerPage, activeTab]);
 
@@ -130,6 +129,12 @@ const HomePage = () => {
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+    if(tab==="userPosts"){
+      setSearchParams("?filter=user")
+    }
+    else if(tab === "allPosts"){
+      setSearchParams("")
+    }
     setCurrentPage(1);
   };
 

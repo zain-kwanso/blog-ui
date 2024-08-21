@@ -1,5 +1,6 @@
-// components/CommentsSection.js
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import CommentSkeleton from "./CommentSkeleton";
 
 const CommentsSection = ({
   comments,
@@ -99,8 +100,14 @@ const CommentsSection = ({
       <h2 className="text-xl font-bold mb-4">Comments</h2>
       <div className="space-y-6">
         <div className="flex-grow overflow-auto mb-4">
-          {loading && <p>Loading comments...</p>}
-          {error && <p className="text-red-500">{error}</p>}
+        {loading && (
+            <>
+              <CommentSkeleton />
+              <CommentSkeleton />
+              <CommentSkeleton />
+            </>
+          )}
+          {error && toast.error("An error occurred while loading Comments")}
           {!loading && !error && comments?.length === 0 && (
             <p className="text-gray-500">
               No comments yet. Be the first to comment!
@@ -153,7 +160,7 @@ const CommentsSection = ({
                       d="M5 10l7-7m0 0l7 7m-7-7v18"
                     />
                   </svg>
-                  Send
+                  {/* Send */}
                 </button>
               </div>
             </div>

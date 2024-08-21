@@ -2,8 +2,10 @@ import React, { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 import loginValidationSchema from "../../Validation/loginValidationSchema";
 import { AuthContext } from "../context/authContext";
+import { routeUrl } from "../utils/pageRoutes";
 
 const LoginForm = () => {
   const { user, signin } = useContext(AuthContext);
@@ -18,20 +20,23 @@ const LoginForm = () => {
     resolver: yupResolver(loginValidationSchema),
   });
 
-  useEffect(() => {
-    if (user) {
-      navigate("/home");
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate("/home");
+  //   }
+  // }, [user]);
 
   const onSubmit = async (data) => {
     try {
       await signin(data.email, data.password);
+      toast.success("Login successful!");
+      navigate(routeUrl.base)
     } catch (error) {
       setError("apiError", {
         type: "manual",
         message: "Invalid Credentials",
       });
+      toast.error("Invalid Credentials!");
     }
   };
 
@@ -69,9 +74,7 @@ const LoginForm = () => {
         )}
       </div>
 
-      {errors.apiError && (
-        <p className="text-red-500 text-sm mt-1">{errors.apiError.message}</p>
-      )}
+    
 
       <button
         type="submit"

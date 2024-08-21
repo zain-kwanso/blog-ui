@@ -1,12 +1,14 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 import signupValidationSchema from "../../Validation/signupValidationSchema";
 import { AuthContext } from "../context/authContext";
+import { routeUrl } from "../utils/pageRoutes";
 
 const SignupForm = () => {
-  const { user, signUp } = useContext(AuthContext);
+  const { signUp } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const {
@@ -18,20 +20,23 @@ const SignupForm = () => {
     resolver: yupResolver(signupValidationSchema),
   });
 
-  useEffect(() => {
-    if (user) {
-      navigate("/");
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate("/");
+  //   }
+  // }, [user]);
 
   const onSubmit = async (data) => {
     try {
       await signUp(data.name, data.email, data.password);
+      toast.success("Signup successful!");
+      navigate(routeUrl.base)
     } catch (error) {
       setError("apiError", {
         type: "manual",
-        message: error.message || "An error occurred during signup",
+        message: "An error occurred during signup",
       });
+      toast.error(error.message || "An error occurred during signup");
     }
   };
 
@@ -79,9 +84,7 @@ const SignupForm = () => {
         )}
       </div>
 
-      {errors.apiError && (
-        <p className="text-red-500 text-sm mt-1">{errors.apiError.message}</p>
-      )}
+     
 
       <button
         type="submit"

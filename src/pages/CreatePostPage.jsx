@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 import postValidationSchema from "../validation/postValidationSchema";
 import useCreatePost from "../hooks/useCreatePost";
 
@@ -25,12 +26,14 @@ const CreatePostPage = () => {
 
     try {
       const post = await createPost(data);
+      toast.success("Post created successfully!");
       navigate(`/post/${post?.id}/preview`);
     } catch (error) {
       setError("api", {
         type: "manual",
-        message: error.message || "An error occurred during post creation",
+        message:  "An error occurred during post creation",
       });
+      toast.error( "An error occurred during post creation");
     }
   };
 
@@ -73,9 +76,7 @@ const CreatePostPage = () => {
               </p>
             )}
           </div>
-          {errors.api && (
-            <p className="text-red-500 text-sm mt-1">{errors.api.message}</p>
-          )}
+          
           <div className="flex gap-4 justify-end font-medium">
             <button
               type="submit"
