@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import PostContent from "../components/PostContent";
+import PostContentSkeleton from "../components/PostContentSkeleton";
 import CommentsSection from "../components/CommentsSection";
 import useFetchPost from "../hooks/useFetchPost";
 import useFetchComments from "../hooks/useFetchComments";
@@ -11,7 +12,7 @@ import { AuthContext } from "../context/authContext";
 
 const PreviewPostPage = () => {
   const { postId } = useParams();
-  const { fetchPost, post } = useFetchPost();
+  const { fetchPost, post, loading: postLoading } = useFetchPost();
   const { comments, fetchComments, loading, error } = useFetchComments();
   const { user } = useContext(AuthContext);
   const { createComment } = useCreateComment();
@@ -60,28 +61,32 @@ const PreviewPostPage = () => {
   return (
     <>
       <div className="w-full max-w-4xl mx-auto py-8 px-4 md:px-6">
-        {post ? (
-          <>
-            <PostContent post={post} />
-            <CommentsSection
-              comments={comments}
-              user={user}
-              handleAddComment={handleAddComment}
-              handleDeleteComment={handleDeleteComment}
-              handleAddReply={handleAddReply}
-              loading={loading}
-              error={error}
-            />
-          </>
-        ) : (
-          <div className="text-center text-red-500">
-            <h2>Post not found</h2>
-            <p>
-              Sorry, the post you are looking for does not exist or has been
-              removed.
-            </p>
-          </div>
-        )}
+        <div>
+          {postLoading ? (
+            <PostContentSkeleton />
+          ) : post ? (
+            <>
+              <PostContent post={post} />
+              <CommentsSection
+                comments={comments}
+                user={user}
+                handleAddComment={handleAddComment}
+                handleDeleteComment={handleDeleteComment}
+                handleAddReply={handleAddReply}
+                loading={loading}
+                error={error}
+              />
+            </>
+          ) : (
+            <div className="text-center text-red-500">
+              <h2>Post not found</h2>
+              <p>
+                Sorry, the post you are looking for does not exist or has been
+                removed.
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
