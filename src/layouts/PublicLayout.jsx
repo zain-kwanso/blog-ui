@@ -1,8 +1,9 @@
 import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'; 
+import "react-toastify/dist/ReactToastify.css";
 import PublicHeader from "../components/PublicHeader";
+import PrivateHeader from "../components/PrivateHeader";
 import Footer from "../components/Footer";
 
 const PublicLayout = ({ isAuthenticated }) => {

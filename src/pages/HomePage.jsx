@@ -1,4 +1,4 @@
-import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,12 +10,17 @@ import Skeleton from "../components/Skelton";
 import Pagination from "../components/Pagination";
 import useFetchAllPosts from "../hooks/useFetchAllPosts";
 import useDeletePost from "../hooks/useDeletePost";
+import useCustomNavigation from "../hooks/useCustomNavigation";
 
 const HomePage = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("allPosts");
-  const navigate = useNavigate();
+  const {
+    navigateToCreatePostPage,
+    navigateToEditPostPage,
+    navigateToPreviewPostPage,
+  } = useCustomNavigation();
   const { user } = useContext(AuthContext);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -88,12 +93,12 @@ const HomePage = () => {
   };
 
   const handlePostClick = (post) => {
-    navigate(`/post/${post.id}/preview`);
+    navigateToPreviewPostPage(post.id);
   };
 
   const handleEditPost = (post) => {
     if (user) {
-      navigate(`/post/${post.id}/edit`);
+      navigateToEditPostPage(post.id);
     } else {
       toast.error("Please log in to edit posts.");
     }
@@ -124,16 +129,15 @@ const HomePage = () => {
   };
 
   const handleCreatePost = () => {
-    navigate("/post/create");
+    navigateToCreatePostPage();
   };
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    if(tab==="userPosts"){
-      setSearchParams("?filter=user")
-    }
-    else if(tab === "allPosts"){
-      setSearchParams("")
+    if (tab === "userPosts") {
+      setSearchParams("?filter=user");
+    } else if (tab === "allPosts") {
+      setSearchParams("");
     }
     setCurrentPage(1);
   };

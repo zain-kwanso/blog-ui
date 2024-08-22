@@ -3,13 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import signupValidationSchema from "../../Validation/signupValidationSchema";
+import { signupValidationSchema } from "../validation/validationSchema";
 import { AuthContext } from "../context/authContext";
 import { routeUrl } from "../utils/pageRoutes";
+import useCustomNavigation from "../hooks/useCustomNavigation";
 
 const SignupForm = () => {
-  const { signUp } = useContext(AuthContext);
+  const { signup } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { navigateToHomePage } = useCustomNavigation();
 
   const {
     register,
@@ -28,15 +30,15 @@ const SignupForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      await signUp(data.name, data.email, data.password);
+      await signup(data.name, data.email, data.password);
       toast.success("Signup successful!");
-      navigate(routeUrl.base)
+      navigateToHomePage();
     } catch (error) {
       setError("apiError", {
         type: "manual",
         message: "An error occurred during signup",
       });
-      toast.error(error.message || "An error occurred during signup");
+      toast.error("An error occurred during signup");
     }
   };
 
@@ -83,8 +85,6 @@ const SignupForm = () => {
           <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
         )}
       </div>
-
-     
 
       <button
         type="submit"

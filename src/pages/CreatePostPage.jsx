@@ -2,12 +2,13 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import postValidationSchema from "../validation/postValidationSchema";
+import { postValidationSchema } from "../validation/validationSchema";
 import useCreatePost from "../hooks/useCreatePost";
+import useCustomNavigation from "../hooks/useCustomNavigation";
 
 const CreatePostPage = () => {
   const { createPost } = useCreatePost();
-  const navigate = useNavigate();
+  const { navigateToPreviewPostPage } = useCustomNavigation();
 
   const {
     register,
@@ -17,7 +18,7 @@ const CreatePostPage = () => {
     clearErrors,
   } = useForm({
     resolver: yupResolver(postValidationSchema),
-    mode: "onBlur",
+    mode: "onChange",
     reValidateMode: "onChange",
   });
 
@@ -27,18 +28,18 @@ const CreatePostPage = () => {
     try {
       const post = await createPost(data);
       toast.success("Post created successfully!");
-      navigate(`/post/${post?.id}/preview`);
+      navigateToPreviewPostPage(post.id);
     } catch (error) {
       setError("api", {
         type: "manual",
-        message:  "An error occurred during post creation",
+        message: "An error occurred during post creation",
       });
-      toast.error( "An error occurred during post creation");
+      toast.error("An error occurred during post creation");
     }
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="pt-16 px-2 py-2 flex items-center justify-center">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-3xl border w-full">
         <h2 className="text-xl font-bold mb-4">Create New Post</h2>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -76,7 +77,7 @@ const CreatePostPage = () => {
               </p>
             )}
           </div>
-          
+
           <div className="flex gap-4 justify-end font-medium">
             <button
               type="submit"

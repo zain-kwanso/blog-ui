@@ -1,5 +1,6 @@
 import React from "react";
 import LoginForm from "../components/LoginForm";
+import { routeUrl } from "../utils/pageRoutes";
 
 const LoginPage = () => {
   return (
@@ -10,7 +11,7 @@ const LoginPage = () => {
         <LoginForm />
         <p className="mt-4 text-center">
           Don't have an account?{" "}
-          <a href="/signup" className="text-blue-500 hover:underline">
+          <a href={routeUrl.signup} className="text-blue-500 hover:underline">
             Sign Up
           </a>
         </p>

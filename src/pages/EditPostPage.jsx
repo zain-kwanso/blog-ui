@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import postValidationSchema from "../validation/postValidationSchema";
+import { postValidationSchema } from "../validation/validationSchema";
 import useEditPost from "../hooks/useEditPost";
 import useFetchPost from "../hooks/useFetchPost";
+import useCustomNavigation from "../hooks/useCustomNavigation";
+
 const EditPostPage = () => {
-  const navigate = useNavigate();
+  const { navigateToPreviewPostPage } = useCustomNavigation();
   const { editPost } = useEditPost();
   const { fetchPost, post } = useFetchPost();
   const { postId } = useParams();
-
   const [isFirstSubmit, setIsFirstSubmit] = useState(true);
 
   const {
@@ -37,9 +37,6 @@ const EditPostPage = () => {
       setValue("title", post?.title || "");
       setValue("content", post?.content || "");
     }
-    else{
-      navigate("/home")
-    }
   }, [post]);
 
   const onSubmit = async (data) => {
@@ -52,7 +49,7 @@ const EditPostPage = () => {
     try {
       await editPost(postId, data);
       toast.success("Post updated successfully!");
-      navigate(`/post/${postId}/preview`);
+      navigateToPreviewPostPage(postId);
     } catch (error) {
       setError("api", {
         type: "manual",
@@ -63,7 +60,7 @@ const EditPostPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="pt-16 py-2 px-2 flex items-center justify-center">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-3xl border w-full">
         <h2 className="text-xl font-bold mb-4">Edit Post</h2>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -105,7 +102,7 @@ const EditPostPage = () => {
               </p>
             )}
           </div>
-        
+
           <div className="flex gap-4 justify-end font-medium">
             <button
               type="submit"

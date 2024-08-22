@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import PostContent from "../components/PostContent";
@@ -34,7 +34,7 @@ const PreviewPostPage = () => {
     }
   };
 
-  const handleAddReply = async (parentId) => {
+  const handleAddReply = async (replyComment, parentId) => {
     if (replyComment[parentId]?.trim() === "") return;
     try {
       await createComment(replyComment[parentId], post.id, parentId);

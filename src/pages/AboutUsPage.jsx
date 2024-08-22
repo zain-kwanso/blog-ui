@@ -90,4 +90,4 @@ const AboutUsPage = () => {
   );
 };
 
-export default AboutUsPage;
+export default React.memo(AboutUsPage);

@@ -13,6 +13,39 @@ const CommentsSection = ({
 }) => {
   const [replyComment, setReplyComment] = useState({});
   const [newComment, setNewComment] = useState("");
+  const [newCommentError, setNewCommentError] = useState("");
+  const [replyError, setReplyError] = useState({});
+
+  const handleReplyChange = (parentId, value) => {
+    if (value.length > 255) {
+      setReplyError((prev) => ({
+        ...prev,
+        [parentId]: "Reply cannot exceed 255 characters",
+      }));
+    } else if (value.trim() === "") {
+      setReplyError((prev) => ({
+        ...prev,
+        [parentId]: "Reply cannot be empty",
+      }));
+    } else {
+      setReplyError((prev) => ({
+        ...prev,
+        [parentId]: "",
+      }));
+    }
+    setReplyComment((prev) => ({ ...prev, [parentId]: value }));
+  };
+
+  const handleCommentChange = (value) => {
+    if (value.length > 255) {
+      setNewCommentError("Comment cannot exceed 255 characters");
+    } else if (value.trim() === "") {
+      setNewCommentError("Comment cannot be empty");
+    } else {
+      setNewCommentError("");
+    }
+    setNewComment(value);
+  };
 
   const renderComments = (
     comments,
@@ -44,7 +77,7 @@ const CommentsSection = ({
             Delete
           </button>
         )}
-        {level < 1 && user?.id != undefined && (
+        {level < 1 && user?.id !== undefined && (
           <button
             className="text-blue-500 text-xs ml-2"
             onClick={() =>
@@ -61,12 +94,19 @@ const CommentsSection = ({
         {replyComment[comment?.id] !== undefined && level < 1 && (
           <div className="mt-2">
             <textarea
-              className="w-full p-2 border rounded text-sm"
+              className={`w-full p-2 border rounded text-sm ${
+                replyError[comment?.id] ? "border-red-500" : ""
+              }`}
               value={replyComment[comment?.id]}
               rows={3}
               onChange={(e) => handleReplyChange(comment?.id, e.target.value)}
               placeholder="Add a reply"
             />
+            {replyError[comment?.id] && (
+              <p className="text-red-500 text-xs mt-1">
+                {replyError[comment?.id]}
+              </p>
+            )}
             <div className="flex items-center justify-end gap-3">
               <button
                 className="bg-gray-500 text-white text-xs px-4 py-2 rounded mt-2"
@@ -81,7 +121,15 @@ const CommentsSection = ({
               </button>
               <button
                 className="bg-blue-500 text-white text-xs px-4 py-2 rounded mt-2"
-                onClick={() => handleAddReply(comment?.id)}
+                onClick={() => {
+                  if (!replyError[comment?.id]) {
+                    handleAddReply(replyComment, comment?.id);
+                    setReplyComment((prev) => ({
+                      ...prev,
+                      [comment?.id]: undefined,
+                    }));
+                  }
+                }}
               >
                 Add Reply
               </button>
@@ -100,7 +148,7 @@ const CommentsSection = ({
       <h2 className="text-xl font-bold mb-4">Comments</h2>
       <div className="space-y-6">
         <div className="flex-grow overflow-auto mb-4">
-        {loading && (
+          {loading && (
             <>
               <CommentSkeleton />
               <CommentSkeleton />
@@ -120,7 +168,7 @@ const CommentsSection = ({
         </div>
       </div>
 
-      {user?.id != undefined && (
+      {user?.id !== undefined && (
         <div className="mt-8">
           <h3 className="text-lg font-bold">Add a comment</h3>
           <div className="mt-4 grid gap-4">
@@ -136,15 +184,22 @@ const CommentsSection = ({
               </div>
               <div className="flex items-end gap-2">
                 <textarea
-                  className="w-full p-2 border rounded text-sm"
+                  className={`w-full p-2 border rounded text-sm ${
+                    newCommentError ? "border-red-500" : ""
+                  }`}
                   value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
+                  onChange={(e) => handleCommentChange(e.target.value)}
                   placeholder="Add a comment"
                   rows="3"
                 />
                 <button
                   className="bg-blue-500 text-white text-sm px-4 py-2 rounded"
-                  onClick={() => handleAddComment(newComment)}
+                  onClick={() => {
+                    if (!newCommentError) {
+                      handleAddComment(newComment);
+                      setNewComment("");
+                    }
+                  }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -164,6 +219,9 @@ const CommentsSection = ({
                 </button>
               </div>
             </div>
+            {newCommentError && (
+              <p className="text-red-500 text-xs mt-1">{newCommentError}</p>
+            )}
           </div>
         </div>
       )}

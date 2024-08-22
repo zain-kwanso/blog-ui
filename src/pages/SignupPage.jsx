@@ -1,5 +1,6 @@
 import React from "react";
 import SignupForm from "../components/SignupForm";
+import { routeUrl } from "../utils/pageRoutes";
 
 const SignupPage = () => {
   return (
@@ -9,7 +10,7 @@ const SignupPage = () => {
         <SignupForm />
         <p className="mt-4 text-center">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-500 hover:underline">
+          <a href={routeUrl.login} className="text-blue-500 hover:underline">
             Login
           </a>
         </p>

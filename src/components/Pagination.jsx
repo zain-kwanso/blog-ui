@@ -22,10 +22,7 @@ const Pagination = ({
     }
   };
   const showToast = (message) => {
-    toast.error(message, {
-      autoClose: 2000,
-      hideProgressBar: true,
-    });
+    toast.error(message);
   };
   useEffect(() => {
     if (!(currentPage >= 1 && currentPage <= totalPages)) {

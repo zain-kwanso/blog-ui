@@ -3,13 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import loginValidationSchema from "../../Validation/loginValidationSchema";
+import { loginValidationSchema } from "../validation/validationSchema";
 import { AuthContext } from "../context/authContext";
 import { routeUrl } from "../utils/pageRoutes";
+import useCustomNavigation from "../hooks/useCustomNavigation";
 
 const LoginForm = () => {
   const { user, signin } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { navigateToHomePage } = useCustomNavigation();
 
   const {
     register,
@@ -30,7 +32,7 @@ const LoginForm = () => {
     try {
       await signin(data.email, data.password);
       toast.success("Login successful!");
-      navigate(routeUrl.base)
+      navigateToHomePage();
     } catch (error) {
       setError("apiError", {
         type: "manual",
@@ -73,8 +75,6 @@ const LoginForm = () => {
           <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
         )}
       </div>
-
-    
 
       <button
         type="submit"

@@ -1,6 +1,6 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'; 
+import "react-toastify/dist/ReactToastify.css";
 import { Outlet, Navigate } from "react-router-dom";
 import PrivateHeader from "../components/PrivateHeader";
 import Footer from "../components/Footer";
