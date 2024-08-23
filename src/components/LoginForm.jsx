@@ -1,16 +1,13 @@
-import React, { useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { loginValidationSchema } from "../validation/validationSchema";
 import { AuthContext } from "../context/authContext";
-import { routeUrl } from "../utils/pageRoutes";
 import useCustomNavigation from "../hooks/useCustomNavigation";
 
 const LoginForm = () => {
-  const { user, signin } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { signin } = useContext(AuthContext);
   const { navigateToHomePage } = useCustomNavigation();
 
   const {
@@ -21,12 +18,6 @@ const LoginForm = () => {
   } = useForm({
     resolver: yupResolver(loginValidationSchema),
   });
-
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/home");
-  //   }
-  // }, [user]);
 
   const onSubmit = async (data) => {
     try {

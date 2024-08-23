@@ -22,12 +22,6 @@ const SignupForm = () => {
     resolver: yupResolver(signupValidationSchema),
   });
 
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/");
-  //   }
-  // }, [user]);
-
   const onSubmit = async (data) => {
     try {
       await signup(data.name, data.email, data.password);

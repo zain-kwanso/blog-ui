@@ -1,35 +1,26 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
-
 import { FaUser } from "react-icons/fa";
+import { toast } from "react-toastify";
+import UserDetails from "./UserDetails";
 import { AuthContext } from "../context/authContext";
 import { routeUrl } from "../utils/pageRoutes";
 
 const PrivateHeader = () => {
   const { user, signout } = useContext(AuthContext);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const handleProfileClick = async () => {
-    const result = await Swal.fire({
-      title: `Hi! ${user?.name}`,
-      text: "Do you want to sign out?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sign Out",
-      cancelButtonText: "Cancel",
-    });
+  const handleProfileClick = () => {
+    setIsModalOpen(true);
+  };
 
-    if (result.isConfirmed) {
-      signout();
-      Swal.fire("Signed Out!", "You have been signed out.", "success");
-    }
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -98,6 +89,18 @@ const PrivateHeader = () => {
           </nav>
         )}
       </header>
+
+      {isModalOpen && (
+        <UserDetails
+          user={user}
+          onSignOut={() => {
+            signout();
+            handleCloseModal();
+            toast.success("Signout Successfull");
+          }}
+          onClose={handleCloseModal}
+        />
+      )}
     </>
   );
 };

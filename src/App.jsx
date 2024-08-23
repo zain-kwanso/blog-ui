@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PublicLayout from "./layouts/PublicLayout";
 import PrivateLayout from "./layouts/PrivateLayout";
