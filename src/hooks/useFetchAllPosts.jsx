@@ -7,8 +7,8 @@ const useFetchAllPosts = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [pagination, setPagination] = useState({
-    currentPage: 1,
-    totalPages: 1,
+    currentPage: null,
+    totalPages: null,
     nextPageUrl: null,
     prevPageUrl: null,
   });

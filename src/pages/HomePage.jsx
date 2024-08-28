@@ -25,6 +25,7 @@ const HomePage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page")) || 1;
+  // console.log(page);
   const [currentPage, setCurrentPage] = useState(page);
 
   const { posts, fetchAllPosts, fetchUserPosts, loading, pagination } =
@@ -41,7 +42,7 @@ const HomePage = () => {
         search: search,
       });
     }
-  }, [user, currentPage, itemsPerPage, activeTab]);
+  }, [currentPage, itemsPerPage, activeTab]);
 
   const handleDeletePost = async (postId) => {
     if (!user) return;
@@ -224,13 +225,14 @@ const HomePage = () => {
             </div>
           )}
         </div>
-
-        <Pagination
-          currentPage={currentPage}
-          totalPages={pagination.totalPages}
-          onPageChange={handlePageChange}
-          onLimitChange={handleLimitChange}
-        />
+        {!loading && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={pagination?.totalPages}
+            onPageChange={handlePageChange}
+            onLimitChange={handleLimitChange}
+          />
+        )}
       </div>
     </>
   );

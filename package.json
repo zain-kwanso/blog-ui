@@ -20,6 +20,7 @@
     "react-toastify": "^10.0.5",
     "sweetalert2": "^11.12.4",
     "toastify": "^2.0.1",
+    "typescript": "^5.5.4",
     "yup": "^1.4.0"
   },
   "devDependencies": {
