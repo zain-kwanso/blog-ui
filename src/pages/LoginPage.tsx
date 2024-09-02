@@ -2,10 +2,9 @@ import React from "react";
 import LoginForm from "../components/LoginForm";
 import { routeUrl } from "../utils/pageRoutes";
 
-const LoginPage = () => {
+const LoginPage: React.FC = (): React.JSX.Element => {
   return (
     <div className="flex justify-center items-center h-full w-full p-4">
-      {/* Adjust padding top and bottom to accommodate header and footer */}
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         <LoginForm />

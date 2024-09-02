@@ -5,15 +5,9 @@ import { toast } from "react-toastify";
 import { signupValidationSchema } from "../validation/validationSchema";
 import { AuthContext } from "../context/authContext";
 import useCustomNavigation from "../hooks/useCustomNavigation";
+import { SignupFormData } from "src/types/user";
 
-// Define the interface specifically for the form data
-interface SignupFormData {
-  name: string;
-  email: string;
-  password: string;
-}
-
-const SignupForm: React.FC = () => {
+const SignupForm: React.FC = (): React.JSX.Element => {
   const { signup } = useContext(AuthContext);
   const { navigateToHomePage } = useCustomNavigation();
 

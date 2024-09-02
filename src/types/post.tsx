@@ -1,10 +1,13 @@
-export interface Post {
-  id?: number;
+export interface PostFormData {
   title: string;
   content: string;
-  UserId?: number;
-  createdAt?: string;
-  updatedAt?: string;
+}
+
+export interface Post extends PostFormData {
+  id: number;
+  UserId: number;
+  createdAt: string;
+  updatedAt: string;
   authorName?: string;
 }
 
@@ -14,7 +17,7 @@ export interface Pagination {
   nextPageUrl: string | null;
   previousPageUrl: string | null;
 }
-
+//generics
 export interface PostsResponse {
   posts: Post[];
   pagination: Pagination;

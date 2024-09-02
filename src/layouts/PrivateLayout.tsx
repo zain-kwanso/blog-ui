@@ -10,7 +10,9 @@ interface PrivateLayoutProps {
   isAuthenticated: boolean;
 }
 
-const PrivateLayout: React.FC<PrivateLayoutProps> = ({ isAuthenticated }) => {
+const PrivateLayout: React.FC<PrivateLayoutProps> = ({
+  isAuthenticated,
+}): React.JSX.Element => {
   if (!isAuthenticated) {
     console.log("private layout");
     return <Navigate to={routeUrl.base} />;

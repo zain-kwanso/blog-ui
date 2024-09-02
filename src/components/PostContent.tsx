@@ -5,18 +5,20 @@ interface PostContentProps {
   post?: Post;
 }
 
-const PostContent: React.FC<PostContentProps> = ({ post }) => {
-  if (!post) return null;
+const PostContent: React.FC<PostContentProps> = ({
+  post,
+}): React.JSX.Element => {
+  if (!post) return <></>;
 
   return (
     <article className="pt-16 prose prose-gray dark:prose-invert">
       <header className="mb-8 flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight capitalize">
-          {post.title}
+          {post?.title}
         </h1>
         <p className="text-gray-600 text-sm">
           Posted on{" "}
-          {new Date(post.createdAt!).toLocaleDateString("en-US", {
+          {new Date(post?.createdAt!).toLocaleDateString("en-US", {
             month: "long",
             day: "numeric",
             year: "numeric",
@@ -25,7 +27,7 @@ const PostContent: React.FC<PostContentProps> = ({ post }) => {
       </header>
       <div>
         <p className="whitespace-pre-line w-auto text-justify text-base leading-relaxed">
-          {post.content}
+          {post?.content || ""}
         </p>
       </div>
     </article>

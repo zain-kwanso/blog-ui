@@ -1,6 +1,6 @@
 import React from "react";
 
-const PostContentSkeleton = () => {
+const PostContentSkeleton = (): React.JSX.Element => {
   return (
     <article className="pt-16 prose prose-gray dark:prose-invert">
       <header className="mb-8 flex flex-col gap-2">

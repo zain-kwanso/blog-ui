@@ -11,7 +11,7 @@ import useDeleteComment from "../hooks/useDeleteComment";
 import { AuthContext } from "../context/authContext";
 import { ReplyComment } from "src/types/comment";
 
-const PreviewPostPage = () => {
+const PreviewPostPage: React.FC = (): React.JSX.Element => {
   const { postId: postIdStr } = useParams();
   const postId = parseInt(postIdStr!);
   const { fetchPost, post, loading: postLoading } = useFetchPost();

@@ -6,7 +6,7 @@ import UserDetails from "./UserDetails";
 import { AuthContext } from "../context/authContext";
 import { routeUrl } from "../utils/pageRoutes";
 
-const PrivateHeader: React.FC = () => {
+const PrivateHeader: React.FC = (): React.JSX.Element => {
   const { user, signout } = useContext(AuthContext);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

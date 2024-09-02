@@ -10,7 +10,9 @@ interface PublicLayoutProps {
   isAuthenticated: boolean;
 }
 
-const PublicLayout: React.FC<PublicLayoutProps> = ({ isAuthenticated }) => {
+const PublicLayout: React.FC<PublicLayoutProps> = ({
+  isAuthenticated,
+}): React.JSX.Element => {
   return (
     <div className="flex flex-col min-h-screen h-full justify-between relative">
       {isAuthenticated ? <PrivateHeader /> : <PublicHeader />}

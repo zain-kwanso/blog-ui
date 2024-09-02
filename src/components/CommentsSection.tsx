@@ -25,7 +25,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({
   handleAddReply,
   loading,
   error,
-}) => {
+}): React.JSX.Element => {
   const [replyComment, setReplyComment] = useState<ReplyComment>({});
   const [newComment, setNewComment] = useState<string>("");
   const [newCommentError, setNewCommentError] = useState<string>("");
@@ -64,8 +64,6 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({
 
   const renderComments = (
     comments: CommentResponse[],
-    parent: number | null = null,
-    isReply: boolean = false,
     level: number = 0
   ): JSX.Element[] => {
     return comments?.map((comment) => (
@@ -78,10 +76,12 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({
             />
           </div>
           <div className="grid gap-1">
-            <div className="font-medium text-sm text-gray-700">
+            <div className="font-bold text-sm text-gray-700">
               {comment?.User?.name || user?.name}
             </div>
-            <p className="text-muted-foreground text-sm">{comment?.content}</p>
+            <p className="text-muted-foreground text-sm font-medium">
+              {comment?.content}
+            </p>
           </div>
         </div>
         {comment?.UserId === user?.id && (
@@ -155,7 +155,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({
           )}
         {comment.replies &&
           comment.replies.length > 0 &&
-          renderComments(comment?.replies, comment?.id, true, level + 1)}
+          renderComments(comment?.replies, level + 1)}
       </div>
     ));
   };

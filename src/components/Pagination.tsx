@@ -1,4 +1,5 @@
 import { useState, useEffect, ChangeEvent } from "react";
+import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 interface PaginationProps {
@@ -14,9 +15,11 @@ const Pagination: React.FC<PaginationProps> = ({
   onPageChange,
   onLimitChange,
 }) => {
+  // const [searchParams] = useSearchParams();
+  // const limit = parseInt(searchParams.get("limit")!) || 10;
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
-  const handlePageChange = (page: number) => {
+  const handlePageChange = (page: number): void => {
     if (page >= 1 && page <= totalPages) {
       onPageChange(page);
     } else {
@@ -27,7 +30,7 @@ const Pagination: React.FC<PaginationProps> = ({
     }
   };
 
-  const showToast = (message: string) => {
+  const showToast = (message: string): void => {
     toast.error(message);
   };
 
@@ -40,13 +43,12 @@ const Pagination: React.FC<PaginationProps> = ({
     }
   }, [currentPage, totalPages, onPageChange]);
 
-  const handleLimitChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleLimitChange = (e: ChangeEvent<HTMLSelectElement>): void => {
     const newLimit = parseInt(e.target.value, 10);
     setItemsPerPage(newLimit);
     onLimitChange(newLimit);
   };
 
-  // Calculate the previous and next page numbers
   const prevPage = currentPage - 1;
   const nextPage = currentPage + 1;
 

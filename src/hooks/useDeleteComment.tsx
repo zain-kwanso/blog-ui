@@ -2,16 +2,14 @@
 import { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { url } from "../utils/API";
+import { CommentData } from "src/types/comment";
 
 const useDeleteComment = () => {
   const [error, setError] = useState("");
 
-  const deleteComment = async (commentId: number) => {
+  const deleteComment = async (commentId: number): Promise<void> => {
     try {
-      const response = await axiosInstance.delete(
-        `${url.comments}/${commentId}`
-      );
-      return true;
+      await axiosInstance.delete<CommentData>(`${url.comments}/${commentId}`);
     } catch (err) {
       setError("Failed to delete comment");
     }

@@ -7,11 +7,8 @@ import { postValidationSchema } from "../validation/validationSchema";
 import useEditPost from "../hooks/useEditPost";
 import useFetchPost from "../hooks/useFetchPost";
 import useCustomNavigation from "../hooks/useCustomNavigation";
+import { PostFormData } from "src/types/post";
 
-interface EditPostFormData {
-  title: string;
-  content: string;
-}
 const EditPostPage: React.FC = () => {
   const { navigateToPreviewPostPage } = useCustomNavigation();
   const { editPost } = useEditPost();
@@ -43,7 +40,7 @@ const EditPostPage: React.FC = () => {
     }
   }, [post]);
 
-  const onSubmit = async (data: EditPostFormData) => {
+  const onSubmit = async (data: PostFormData) => {
     if (isFirstSubmit) {
       setIsFirstSubmit(false);
     }

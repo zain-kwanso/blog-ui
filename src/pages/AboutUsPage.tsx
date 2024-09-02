@@ -1,6 +1,6 @@
 import React from "react";
 
-const AboutUsPage = () => {
+const AboutUsPage: React.FC = (): React.JSX.Element => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-16">
       {/* Company Introduction */}

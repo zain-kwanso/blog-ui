@@ -1,14 +1,14 @@
 import { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { url } from "../utils/API";
-import { Post } from "src/types/post";
+import { PostFormData, Post } from "src/types/post";
 
 const useCreatePost = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("null");
 
-  const createPost = async (data: Partial<Post>) => {
+  const createPost = async (data: PostFormData): Promise<Post> => {
     setLoading(true);
     setError("");
     setSuccess("");

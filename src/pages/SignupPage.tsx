@@ -1,7 +1,7 @@
 import SignupForm from "../components/SignupForm";
 import { routeUrl } from "../utils/pageRoutes";
 
-const SignupPage = () => {
+const SignupPage: React.FC = (): React.JSX.Element => {
   return (
     <div className="flex justify-center items-center h-full w-full p-4">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border">

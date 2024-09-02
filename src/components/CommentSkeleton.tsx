@@ -1,6 +1,6 @@
 import React from "react";
 
-const CommentSkeleton = () => {
+const CommentSkeleton: React.FC = (): React.JSX.Element => {
   return (
     <div className="animate-pulse space-y-4">
       <div className="flex items-start gap-4">

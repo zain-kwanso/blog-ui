@@ -16,11 +16,11 @@ const truncateText = (text: string, maxLength: number = 100): string => {
 };
 
 // Utility function to transform post data
-const transformPostData = (post: any): Post => ({
-  id: post.id || null,
-  title: post.title || "Untitled",
-  content: post.content || "No content available",
-  authorName: post.authorName || "Anonymous",
+const transformPostData = (post: Post): Partial<Post> => ({
+  id: post.id,
+  title: post.title || "",
+  content: post.content || "",
+  authorName: post.authorName || "",
 });
 
 const PostCard: React.FC<PostCardProps> = ({
@@ -29,7 +29,7 @@ const PostCard: React.FC<PostCardProps> = ({
   onDelete,
   onEdit,
   isUserPost,
-}) => {
+}): React.JSX.Element => {
   const { title, content, authorName, id } = transformPostData(post);
 
   return (
@@ -43,7 +43,7 @@ const PostCard: React.FC<PostCardProps> = ({
       <h2 className="text-xl font-bold mb-2">{title}</h2>
 
       {/* Render truncated content */}
-      <p className="text-gray-700">{truncateText(content, 200)}</p>
+      <p className="text-gray-700">{truncateText(content!, 200)}</p>
 
       {/* Render author name */}
       <p className="text-gray-500 text-sm mt-2">Posted by {authorName}</p>

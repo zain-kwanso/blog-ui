@@ -3,7 +3,7 @@ import { routeUrl } from "../utils/pageRoutes";
 const useCustomNavigation = () => {
   const navigate = useNavigate();
 
-  const navigateTo = (url: string, params = {}) => {
+  const navigateTo = (url: string, params = {}): void => {
     let finalUrl = url;
     for (const [key, value] of Object.entries(params)) {
       finalUrl = finalUrl.replace(`:${key}`, value as string);

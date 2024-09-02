@@ -1,4 +1,4 @@
-const Skeleton = () => {
+const Skeleton: React.FC = (): React.JSX.Element => {
   return (
     <div
       className="bg-white p-4 w-full max-w-sm rounded-lg shadow-lg h-auto flex flex-col justify-between cursor-pointer hover:shadow-2xl transition-shadow animate-pulse"

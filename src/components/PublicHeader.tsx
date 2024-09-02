@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { routeUrl } from "../utils/pageRoutes";
 
-const PublicHeader: React.FC = () => {
+const PublicHeader: React.FC = (): React.JSX.Element => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {

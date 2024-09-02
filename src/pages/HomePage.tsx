@@ -13,7 +13,7 @@ import useDeletePost from "../hooks/useDeletePost";
 import useCustomNavigation from "../hooks/useCustomNavigation";
 import { Post } from "src/types/post";
 
-const HomePage = () => {
+const HomePage: React.FC = (): React.JSX.Element => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("allPosts");
@@ -34,6 +34,7 @@ const HomePage = () => {
   const { deletePost, error } = useDeletePost();
 
   useEffect(() => {
+    console.log("useEffect");
     if (activeTab === "allPosts") {
       fetchAllPosts({ page: currentPage, limit: itemsPerPage, search: search });
     } else if (activeTab === "userPosts" && user) {
@@ -65,7 +66,7 @@ const HomePage = () => {
       } else {
         toast.success("Post deleted successfully!");
       }
-
+      // console.log("delete post");
       if (activeTab === "allPosts") {
         fetchAllPosts({
           page: currentPage,
@@ -107,7 +108,7 @@ const HomePage = () => {
 
   const fetchPostsWithSearch = async (debouncedSearch: string) => {
     setSearch(debouncedSearch);
-
+    // console.log("search");
     if (currentPage === 1) {
       if (activeTab === "allPosts") {
         await fetchAllPosts({

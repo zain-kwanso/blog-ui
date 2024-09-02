@@ -14,7 +14,7 @@ import CreatePostPage from "./pages/CreatePostPage";
 import EditPostPage from "./pages/EditPostPage";
 import { routeUrl } from "./utils/pageRoutes";
 
-const App = () => {
+const App: React.FC = (): React.JSX.Element => {
   const { user } = useContext(AuthContext);
 
   return (

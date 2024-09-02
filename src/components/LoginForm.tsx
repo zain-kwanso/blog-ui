@@ -5,13 +5,9 @@ import { toast } from "react-toastify";
 import { loginValidationSchema } from "../validation/validationSchema";
 import { AuthContext } from "../context/authContext";
 import useCustomNavigation from "../hooks/useCustomNavigation";
+import { LoginFormData } from "src/types/user";
 
-interface LoginFormData {
-  email: string;
-  password: string;
-}
-
-const LoginForm: React.FC = () => {
+const LoginForm: React.FC = (): React.JSX.Element => {
   const { signin } = useContext(AuthContext);
   const { navigateToHomePage } = useCustomNavigation();
 

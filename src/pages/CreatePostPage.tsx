@@ -5,11 +5,7 @@ import { toast } from "react-toastify";
 import { postValidationSchema } from "../validation/validationSchema";
 import useCreatePost from "../hooks/useCreatePost";
 import useCustomNavigation from "../hooks/useCustomNavigation";
-
-interface CreatePostFormData {
-  title: string;
-  content: string;
-}
+import { PostFormData } from "src/types/post";
 
 const CreatePostPage: React.FC = () => {
   const { createPost } = useCreatePost();
@@ -20,13 +16,13 @@ const CreatePostPage: React.FC = () => {
     handleSubmit,
     formState: { errors },
     clearErrors,
-  } = useForm<CreatePostFormData>({
+  } = useForm<PostFormData>({
     resolver: yupResolver(postValidationSchema),
     mode: "onChange",
     reValidateMode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<CreatePostFormData> = async (data) => {
+  const onSubmit: SubmitHandler<PostFormData> = async (data) => {
     clearErrors();
 
     try {

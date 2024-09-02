@@ -2,6 +2,7 @@ import { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { url } from "../utils/API";
 import { CommentData, CommentResponse } from "../types/comment";
+import { AxiosResponse } from "axios";
 
 export const useCreateComment = () => {
   const [error, setError] = useState<string>("");
@@ -16,10 +17,11 @@ export const useCreateComment = () => {
       const data: CommentData = parentId
         ? { content, PostId: postId, ParentId: parentId }
         : { content, PostId: postId };
-      const response = await axiosInstance.post<CommentResponse>(
-        `${url.comments}/create`,
-        data
-      );
+      const response = await axiosInstance.post<
+        CommentResponse,
+        AxiosResponse<CommentResponse>,
+        CommentData
+      >(`${url.comments}/create`, data);
       setSuccess("Comment created successfully!");
       return response.data;
     } catch (err) {

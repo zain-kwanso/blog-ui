@@ -11,11 +11,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
   search,
   setSearch,
   fetchPostsWithSearch,
-}) => {
+}): React.JSX.Element => {
   const debouncedSearch = useDebounce(search, 300);
   const hasMounted = useRef(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSearch(e.target.value);
   };
 
@@ -26,7 +26,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       debouncedSearch != null
     ) {
       fetchPostsWithSearch(debouncedSearch);
-    } else {
+    } else if (debouncedSearch != "") {
       hasMounted.current = true;
     }
   }, [debouncedSearch]);

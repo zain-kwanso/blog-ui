@@ -6,12 +6,9 @@ export interface CommentData {
   ParentId?: number | null;
 }
 
-export interface CommentResponse {
+export interface CommentResponse extends CommentData {
   id: number;
-  content: string;
   UserId: number;
-  PostId: number;
-  ParentId: number | null;
   createdAt: string;
   updatedAt: string;
   User: UserForComment;
