@@ -17,6 +17,11 @@ const EditPostPage: React.FC = () => {
   const postId = parseInt(postIdStr!);
   const [isFirstSubmit, setIsFirstSubmit] = useState(true);
 
+  const defaultPostValues: PostFormData = {
+    title: "default title",
+    content: "default content",
+  };
+
   const {
     register,
     handleSubmit,
@@ -27,6 +32,7 @@ const EditPostPage: React.FC = () => {
     resolver: yupResolver(postValidationSchema),
     mode: "onChange",
     reValidateMode: "onChange",
+    defaultValues: defaultPostValues,
   });
 
   useEffect(() => {

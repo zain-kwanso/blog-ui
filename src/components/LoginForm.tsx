@@ -11,13 +11,18 @@ const LoginForm: React.FC = (): React.JSX.Element => {
   const { signin } = useContext(AuthContext);
   const { navigateToHomePage } = useCustomNavigation();
 
+  const defaultLoginValues: LoginFormData = {
+    email: "default@example.com",
+    password: "password123",
+  };
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    setError,
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginValidationSchema),
+    defaultValues: defaultLoginValues,
   });
 
   // Define the submit handler with proper types

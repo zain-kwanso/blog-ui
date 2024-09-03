@@ -10,6 +10,11 @@ import { SignupFormData } from "src/types/user";
 const SignupForm: React.FC = (): React.JSX.Element => {
   const { signup } = useContext(AuthContext);
   const { navigateToHomePage } = useCustomNavigation();
+  const defaultSignupValues: SignupFormData = {
+    name: "default",
+    email: "default@example.com",
+    password: "password123",
+  };
 
   const {
     register,
@@ -17,6 +22,7 @@ const SignupForm: React.FC = (): React.JSX.Element => {
     formState: { errors, isSubmitting },
   } = useForm<SignupFormData>({
     resolver: yupResolver(signupValidationSchema),
+    defaultValues: defaultSignupValues,
   });
 
   const onSubmit: SubmitHandler<SignupFormData> = async (data) => {

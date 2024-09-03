@@ -11,6 +11,11 @@ const CreatePostPage: React.FC = () => {
   const { createPost } = useCreatePost();
   const { navigateToPreviewPostPage } = useCustomNavigation();
 
+  const defaultPostValues: PostFormData = {
+    title: "default title",
+    content: "default content",
+  };
+
   const {
     register,
     handleSubmit,
@@ -20,6 +25,7 @@ const CreatePostPage: React.FC = () => {
     resolver: yupResolver(postValidationSchema),
     mode: "onChange",
     reValidateMode: "onChange",
+    defaultValues: defaultPostValues,
   });
 
   const onSubmit: SubmitHandler<PostFormData> = async (data) => {
