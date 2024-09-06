@@ -4,11 +4,13 @@ const emailSchema = Yup.string()
   .email("Please enter a valid email address")
   .required("Email is required");
 
+const passwordSchema = Yup.string()
+  .min(5, "Password must be at least 5 characters long")
+  .required("Password is required");
+
 const loginValidationSchema = Yup.object().shape({
   email: emailSchema,
-  password: Yup.string()
-    .min(5, "Password must be at least 5 characters long")
-    .required("Password is required"),
+  password: passwordSchema,
 });
 
 const postValidationSchema = Yup.object().shape({
@@ -28,9 +30,7 @@ const signupValidationSchema = Yup.object().shape({
     .max(20, "Name must be less than 20 characters")
     .required("Name is required"),
   email: emailSchema,
-  password: Yup.string()
-    .min(5, "Password must be at least 5 characters long")
-    .required("Password is required"),
+  password: passwordSchema,
 });
 
 export { loginValidationSchema, postValidationSchema, signupValidationSchema };

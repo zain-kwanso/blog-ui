@@ -1,10 +1,10 @@
 import { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { url } from "../utils/API";
-import { CommentList } from "../types/comment";
+import { CommentList, UseFetchComments } from "../types/comment";
 import { AxiosResponse } from "axios";
 
-const useFetchComments = () => {
+const useFetchComments = (): UseFetchComments => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [comments, setComments] = useState<CommentList>([]);

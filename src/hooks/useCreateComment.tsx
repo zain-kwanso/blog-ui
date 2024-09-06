@@ -1,17 +1,21 @@
 import { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { url } from "../utils/API";
-import { CommentData, CommentResponse } from "../types/comment";
+import {
+  CommentData,
+  CommentResponse,
+  UseCreateComment,
+} from "../types/comment";
 import { AxiosResponse } from "axios";
 
-export const useCreateComment = () => {
+export const useCreateComment = (): UseCreateComment => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
 
   const createComment = async (
     content: string,
     postId: number,
-    parentId: number | null = null
+    parentId?: number
   ): Promise<CommentResponse> => {
     try {
       const data: CommentData = parentId

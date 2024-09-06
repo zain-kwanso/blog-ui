@@ -20,3 +20,25 @@ export interface ReplyComment {
 }
 
 export type CommentList = CommentResponse[];
+
+export interface UseCreateComment {
+  createComment: (
+    content: string,
+    postId: number,
+    parentId?: number
+  ) => Promise<CommentResponse>;
+  error: string;
+  success: string;
+}
+
+export interface UseDeleteComment {
+  deleteComment: (commentId: number) => Promise<void>;
+  error: string;
+}
+
+export interface UseFetchComments {
+  comments: CommentList;
+  loading: boolean;
+  error: string;
+  fetchComments: (postId: number) => Promise<void>;
+}

@@ -5,6 +5,13 @@ interface PostContentProps {
   post?: Post;
 }
 
+const formatDate = (post: Post): string => {
+  return new Date(post?.createdAt!).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+};
 const PostContent: React.FC<PostContentProps> = ({
   post,
 }): React.JSX.Element => {
@@ -16,14 +23,7 @@ const PostContent: React.FC<PostContentProps> = ({
         <h1 className="text-3xl font-bold tracking-tight capitalize">
           {post?.title}
         </h1>
-        <p className="text-gray-600 text-sm">
-          Posted on{" "}
-          {new Date(post?.createdAt!).toLocaleDateString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-          })}
-        </p>
+        <p className="text-gray-600 text-sm">Posted on {formatDate(post)}</p>
       </header>
       <div>
         <p className="whitespace-pre-line w-auto text-justify text-base leading-relaxed">

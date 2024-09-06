@@ -1,12 +1,12 @@
 import { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { url } from "../utils/API";
-import { Post } from "../types/post";
+import { Post, UseFetchPost } from "../types/post";
 import { AxiosResponse } from "axios";
 
-const useFetchPost = () => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+const useFetchPost = (): UseFetchPost => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
   const [post, setPost] = useState<Post | null>(null);
 
   const fetchPost = async (postId: number): Promise<void> => {

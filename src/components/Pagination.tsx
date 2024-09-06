@@ -14,10 +14,10 @@ const Pagination: React.FC<PaginationProps> = ({
   totalPages,
   onPageChange,
   onLimitChange,
-}) => {
-  // const [searchParams] = useSearchParams();
-  // const limit = parseInt(searchParams.get("limit")!) || 10;
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+}): React.JSX.Element => {
+  const [searchParams] = useSearchParams();
+  const limit = parseInt(searchParams.get("limit")!) || 10;
+  const [itemsPerPage, setItemsPerPage] = useState<number>(limit);
 
   const handlePageChange = (page: number): void => {
     if (page >= 1 && page <= totalPages) {

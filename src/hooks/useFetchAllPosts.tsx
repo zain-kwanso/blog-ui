@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance";
 import { url } from "../utils/API";
-import { PostsResponse, Post, Pagination } from "../types/post";
+import {
+  PostsResponse,
+  Post,
+  Pagination,
+  FetchPostsArgs,
+  UseFetchAllPosts,
+} from "../types/post";
+import { AxiosResponse } from "axios";
 
-const useFetchAllPosts = () => {
+const useFetchAllPosts = (): UseFetchAllPosts => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -20,21 +27,17 @@ const useFetchAllPosts = () => {
     page = 1,
     limit = 10,
     search = "",
-  }: {
-    pageUrl?: string;
-    page?: number;
-    limit?: number;
-    search?: string;
-  }): Promise<void> => {
+  }: FetchPostsArgs): Promise<void> => {
     setError("");
     setLoading(true);
     setPosts([]);
 
     try {
       console.log("fetch posts");
-      const response = await axiosInstance.get<PostsResponse>(
-        `${pageUrl}?page=${page}&limit=${limit}&search=${search}`
-      );
+      const response = await axiosInstance.get<
+        PostsResponse,
+        AxiosResponse<PostsResponse>
+      >(`${pageUrl}?page=${page}&limit=${limit}&search=${search}`);
 
       const data = response.data;
       setPosts(data.posts);
@@ -57,12 +60,7 @@ const useFetchAllPosts = () => {
     page = 1,
     limit = 10,
     search = "",
-  }: {
-    pageUrl?: string;
-    page?: number;
-    limit?: number;
-    search?: string;
-  }): Promise<void> => {
+  }: FetchPostsArgs): Promise<void> => {
     fetchAllPosts({
       pageUrl: pageUrl,
       page: page,

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { routeUrl } from "../utils/pageRoutes";
-const useCustomNavigation = () => {
+import { UseCustomNavigation } from "src/types/navigateHook";
+const useCustomNavigation = (): UseCustomNavigation => {
   const navigate = useNavigate();
 
   const navigateTo = (url: string, params = {}): void => {
