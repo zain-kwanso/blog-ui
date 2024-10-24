@@ -13,8 +13,8 @@ const useFetchPost = (): UseFetchPost => {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.get<Post, AxiosResponse<Post>>(
-        `http://localhost:4000${url.posts}/${postId}`
+      const response = await axiosInstance.get<Post, AxiosResponse<Post>>(
+        `${url.posts}/${postId}`
       );
       setPost(response.data);
     } catch (err) {

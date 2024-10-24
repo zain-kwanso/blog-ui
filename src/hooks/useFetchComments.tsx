@@ -13,9 +13,10 @@ const useFetchComments = (): UseFetchComments => {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.get<CommentList, AxiosResponse<CommentList>>(
-        `http://localhost:4000/comments/post/${postId}`
-      );
+      const response = await axiosInstance.get<
+        CommentList,
+        AxiosResponse<CommentList>
+      >(`/comments/post/${postId}`);
       setComments(response.data);
     } catch (err) {
       setError("Failed to load comments");
