@@ -19,7 +19,7 @@ const useCreatePost = (): UseCreatePost => {
         Post,
         AxiosResponse<Post>,
         PostFormData
-      >(`${url.posts}/create`, data);
+      >(`${url.posts}`, data);
       setSuccess("Post created successfully!");
       return response.data;
     } catch (err) {

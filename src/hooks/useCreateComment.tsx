@@ -25,7 +25,7 @@ export const useCreateComment = (): UseCreateComment => {
         CommentResponse,
         AxiosResponse<CommentResponse>,
         CommentData
-      >(`${url.comments}/create`, data);
+      >(`${url.comments}`, data);
       setSuccess("Comment created successfully!");
       return response.data;
     } catch (err) {
