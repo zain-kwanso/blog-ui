@@ -2,7 +2,7 @@ import { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { url } from "../utils/API";
 import { CommentList, UseFetchComments } from "../types/comment";
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 
 const useFetchComments = (): UseFetchComments => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -13,10 +13,9 @@ const useFetchComments = (): UseFetchComments => {
     setLoading(true);
     setError("");
     try {
-      const response = await axiosInstance.get<
-        CommentList,
-        AxiosResponse<CommentList>
-      >(`${url.posts}/${postId}/comments`);
+      const response = await axios.get<CommentList, AxiosResponse<CommentList>>(
+        `http://localhost:4000/comments/post/${postId}`
+      );
       setComments(response.data);
     } catch (err) {
       setError("Failed to load comments");

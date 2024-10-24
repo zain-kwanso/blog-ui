@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { url } from "../utils/API";
 import {
@@ -8,7 +8,7 @@ import {
   FetchPostsArgs,
   UseFetchAllPosts,
 } from "../types/post";
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 
 const useFetchAllPosts = (): UseFetchAllPosts => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -18,8 +18,6 @@ const useFetchAllPosts = (): UseFetchAllPosts => {
   const [pagination, setPagination] = useState<Pagination>({
     currentPage: 1,
     totalPages: 1,
-    nextPageUrl: null,
-    previousPageUrl: null,
   });
 
   const fetchAllPosts = async ({
@@ -44,8 +42,6 @@ const useFetchAllPosts = (): UseFetchAllPosts => {
       setPagination({
         currentPage: data.pagination.currentPage,
         totalPages: data.pagination.totalPages,
-        nextPageUrl: data.pagination.nextPageUrl,
-        previousPageUrl: data.pagination.previousPageUrl,
       });
     } catch (error) {
       console.log(error);

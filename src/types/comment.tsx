@@ -11,7 +11,7 @@ export interface CommentResponse extends CommentData {
   UserId: number;
   createdAt: string;
   updatedAt: string;
-  User: UserForComment;
+  user: UserForComment;
   replies: CommentResponse[];
 }
 

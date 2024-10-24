@@ -77,7 +77,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({
           </div>
           <div className="grid gap-1">
             <div className="font-bold text-sm text-gray-700">
-              {comment?.User?.name || user?.name}
+              {comment?.user?.name || user?.name}
             </div>
             <p className="text-muted-foreground text-sm font-medium">
               {comment?.content}

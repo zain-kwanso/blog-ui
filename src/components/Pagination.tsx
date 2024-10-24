@@ -35,7 +35,8 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   useEffect(() => {
-    if (!(currentPage >= 1 && currentPage <= totalPages)) {
+    if (currentPage >= 1 && (currentPage <= totalPages || totalPages === 0)) {
+    } else {
       showToast(
         "The page you are trying to access doesn't exist. Redirecting to the first page."
       );

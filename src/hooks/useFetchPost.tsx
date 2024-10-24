@@ -2,7 +2,7 @@ import { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { url } from "../utils/API";
 import { Post, UseFetchPost } from "../types/post";
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 
 const useFetchPost = (): UseFetchPost => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -13,8 +13,8 @@ const useFetchPost = (): UseFetchPost => {
     setLoading(true);
     setError("");
     try {
-      const response = await axiosInstance.get<Post, AxiosResponse<Post>>(
-        `${url.posts}/${postId}`
+      const response = await axios.get<Post, AxiosResponse<Post>>(
+        `http://localhost:4000${url.posts}/${postId}`
       );
       setPost(response.data);
     } catch (err) {

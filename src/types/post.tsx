@@ -14,8 +14,6 @@ export interface Post extends PostFormData {
 export interface Pagination {
   currentPage: number;
   totalPages: number;
-  nextPageUrl: string | null;
-  previousPageUrl: string | null;
 }
 
 export interface PostsResponse {
